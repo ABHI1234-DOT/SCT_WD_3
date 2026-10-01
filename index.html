@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizCraft - Premium Interactive Trivia Platform</title>
+    <meta name="description" content="An interactive, high-fidelity quiz game featuring multi-select, fill-in-the-blank, and single-choice questions with dynamic timers, audio feedback, and lifelines.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Premium Ambient Backdrop Elements -->
+    <div class="ambient-glow bg-red" aria-hidden="true"></div>
+    <div class="ambient-glow bg-gold" aria-hidden="true"></div>
+
+    <!-- Navigation Header -->
+    <header class="main-header" id="app-header">
+        <div class="header-container">
+            <div class="header-logo" id="logo-container">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#F2AB27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="#A63242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="#F2AB27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="logo-text">Quiz<span>Craft</span></span>
+            </div>
+            
+            <div class="header-controls">
+                <!-- Audio Toggle Control -->
+                <button class="control-btn" id="audio-toggle-btn" aria-label="Toggle Sound Effects" title="Toggle Sound">
+                    <svg class="icon-volume-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <svg class="icon-volume-off hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                </button>
+
+                <!-- Statistics Modal Button -->
+                <button class="control-btn" id="stats-modal-btn" aria-label="View High Scores" title="High Scores">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="7"></circle>
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                </button>
+                
+                <!-- Quick Help Button -->
+                <button class="control-btn" id="help-modal-btn" aria-label="How to Play" title="How to Play">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content" id="app-main">
+        <div class="content-container">
+
+            <!-- ================= START SCREEN ================= -->
+            <section class="screen-section active" id="start-screen">
+                <div class="hero-block">
+                    <span class="hero-badge">Web Application Task 03</span>
+                    <h1 class="hero-title">Elevate Your Mind with <span class="highlight-text">Interactive Trivia</span></h1>
+                    <p class="hero-description">
+                        Test your expertise across standard subjects. Experience multiple challenge formats, leverage tactical lifelines, and climb the Leaderboard.
+                    </p>
+                </div>
+
+                <!-- Customizer Dashboard -->
+                <div class="customizer-card">
+                    <div class="card-header">
+                        <h2>Configure Challenge</h2>
+                        <p>Customize your gaming preferences below.</p>
+                    </div>
+
+                    <div class="customizer-grid">
+                        <!-- Category Select -->
+                        <div class="field-group">
+                            <label class="field-label">Select Category</label>
+                            <div class="category-grid" id="category-selector-grid">
+                                <button class="category-btn active" data-category="web-dev">
+                                    <span class="cat-icon">💻</span>
+                                    <span class="cat-name">Web Tech</span>
+                                </button>
+                                <button class="category-btn" data-category="science">
+                                    <span class="cat-icon">🧬</span>
+                                    <span class="cat-name">General Science</span>
+                                </button>
+                                <button class="category-btn" data-category="space">
+                                    <span class="cat-icon">🌌</span>
+                                    <span class="cat-name">Space & Cosmos</span>
+                                </button>
+                                <button class="category-btn" data-category="history">
+                                    <span class="cat-icon">📜</span>
+                                    <span class="cat-name">History & Lit</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="customizer-row-fields">
+                            <!-- Difficulty Level -->
+                            <div class="field-group">
+                                <label class="field-label" for="difficulty-select">Difficulty Level</label>
+                                <select class="styled-select" id="difficulty-select">
+                                    <option value="easy">Easy (Friendly challenges)</option>
+                                    <option value="medium" selected>Medium (Standard level)</option>
+                                    <option value="hard">Hard (For true veterans)</option>
+                                </select>
+                            </div>
+
+                            <!-- Question Count -->
+                            <div class="field-group">
+                                <label class="field-label" for="question-count-select">Questions Count</label>
+                                <select class="styled-select" id="question-count-select">
+                                    <option value="5">5 Questions</option>
+                                    <option value="10" selected>10 Questions</option>
+                                    <option value="15">15 Questions</option>
+                                </select>
+                            </div>
+
+                            <!-- Time Settings -->
+                            <div class="field-group">
+                                <label class="field-label" for="timer-select">Question Timer</label>
+                                <select class="styled-select" id="timer-select">
+                                    <option value="15">15 Seconds (Speed run)</option>
+                                    <option value="30" selected>30 Seconds (Default)</option>
+                                    <option value="0">Untimed (No pressure)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="start-actions">
+                        <button class="btn btn-primary btn-large btn-glow" id="start-quiz-btn">
+                            Launch Challenge
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= QUIZ PLAY SCREEN ================= -->
+            <section class="screen-section" id="quiz-screen">
+                <!-- Quiz Navigation / Progress Indicator -->
+                <div class="quiz-status-row">
+                    <div class="status-indicator">
+                        <span class="status-label">CATEGORY</span>
+                        <span class="status-value" id="current-category-display">Web Tech</span>
+                    </div>
+
+                    <div class="status-indicator">
+                        <span class="status-label">PROGRESS</span>
+                        <span class="status-value" id="question-progress-text">Question 1 of 10</span>
+                    </div>
+
+                    <div class="status-indicator">
+                        <span class="status-label">SCORE</span>
+                        <span class="status-value highlight-text" id="current-score-display">0</span>
+                    </div>
+                </div>
+
+                <!-- Animated Progress Bar -->
+                <div class="progress-track">
+                    <div class="progress-fill" id="quiz-progress-bar" style="width: 10%;"></div>
+                </div>
+
+                <div class="quiz-grid-layout">
+                    <!-- Left: Questions Board -->
+                    <div class="quiz-main-board">
+                        <div class="question-card" id="active-question-card">
+                            <!-- Question Type Tag -->
+                            <div class="q-type-wrapper">
+                                <span class="q-type-badge" id="question-type-badge">Single Select</span>
+                            </div>
+                            
+                            <!-- Question Statement -->
+                            <h2 class="question-text" id="question-text">
+                                Loading challenge content...
+                            </h2>
+
+                            <!-- Dynamic Inputs Options Container -->
+                            <div class="options-container" id="quiz-options-container">
+                                <!-- Appended dynamically via JS -->
+                            </div>
+
+                            <!-- Manual Submit Section (Only for Multi Select and Fill in the Blanks) -->
+                            <div class="action-submit-panel hidden" id="manual-submit-panel">
+                                <button class="btn btn-secondary" id="submit-answer-btn">
+                                    Submit Answer
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Lifelines Tactical Panel -->
+                        <div class="lifeline-panel">
+                            <span class="panel-tag">AVAILABLE LIFELINES</span>
+                            <div class="lifeline-buttons">
+                                <button class="lifeline-btn" id="lifeline-50-50" title="Eliminate two incorrect options">
+                                    <span class="btn-icon">🌓</span> 50:50
+                                </button>
+                                <button class="lifeline-btn" id="lifeline-time" title="Add 15 extra seconds">
+                                    <span class="btn-icon">⏱️</span> +15s Time
+                                </button>
+                                <button class="lifeline-btn" id="lifeline-hint" title="Reveal clue (slight score reduction)">
+                                    <span class="btn-icon">💡</span> Reveal Hint
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Info Panel & Timer -->
+                    <aside class="quiz-side-panel">
+                        <!-- Timer Ring Widget -->
+                        <div class="timer-widget" id="timer-widget-box">
+                            <svg class="timer-svg" width="120" height="120" viewBox="0 0 120 120">
+                                <circle class="timer-circle-bg" cx="60" cy="60" r="52"></circle>
+                                <circle class="timer-circle-fill" id="timer-circle-fill" cx="60" cy="60" r="52"></circle>
+                            </svg>
+                            <div class="timer-text-overlay">
+                                <span class="timer-seconds" id="timer-text">30</span>
+                                <span class="timer-label">SEC</span>
+                            </div>
+                        </div>
+
+                        <!-- Keyboard Shortcut Indicator -->
+                        <div class="shortcut-tip-box">
+                            <h4>Pro Keyboard Tips</h4>
+                            <ul>
+                                <li><kbd>1</kbd> - <kbd>4</kbd> : Select choice</li>
+                                <li><kbd>Enter</kbd> : Submit / Continue</li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- Instant Response/Explanation Overlay (Slides from bottom/overlay) -->
+                <div class="feedback-card-overlay hidden" id="feedback-overlay">
+                    <div class="feedback-card">
+                        <div class="feedback-header">
+                            <div class="feedback-status-icon" id="feedback-icon-box">
+                                <!-- SVG Check/Cross injected here -->
+                            </div>
+                            <div>
+                                <h3 id="feedback-status-title">Correct!</h3>
+                                <p class="feedback-subtext" id="feedback-subtext">You selected the correct answer.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feedback-body">
+                            <div class="correct-answer-reveal" id="correct-answer-reveal-box">
+                                <strong>Correct Answer:</strong> <span id="correct-answer-text">Option Text</span>
+                            </div>
+                            <p class="explanation-paragraph" id="explanation-text">
+                                Detailed explanation about the quiz question goes here.
+                            </p>
+                        </div>
+                        
+                        <div class="feedback-actions">
+                            <button class="btn btn-primary" id="feedback-continue-btn">
+                                Next Question
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= RESULTS SCREEN ================= -->
+            <section class="screen-section" id="results-screen">
+                <div class="results-header">
+                    <span class="results-tag">COMPLETED</span>
+                    <h1 class="results-title">Challenge Summary</h1>
+                    <p class="results-subtitle">Here is how you performed during the quiz run.</p>
+                </div>
+
+                <div class="results-dashboard-grid">
+                    <!-- Gauge and Badging -->
+                    <div class="results-score-card">
+                        <div class="score-radial-box">
+                            <svg class="score-radial-svg" width="160" height="160" viewBox="0 0 160 160">
+                                <circle class="radial-bg" cx="80" cy="80" r="70"></circle>
+                                <circle class="radial-fill" id="score-radial-fill" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440"></circle>
+                            </svg>
+                            <div class="radial-text-box">
+                                <span class="radial-percentage" id="final-percentage-text">80%</span>
+                                <span class="radial-fraction" id="final-fraction-text">8/10</span>
+                            </div>
+                        </div>
+                        
+                        <div class="badge-showcase">
+                            <span class="badge-icon" id="badge-icon-display">🎓</span>
+                            <h3 class="badge-title" id="badge-title-display">Cosmic Scholar</h3>
+                            <p class="badge-desc" id="badge-desc-display">Outstanding knowledge of the topic. Well done!</p>
+                        </div>
+                    </div>
+
+                    <!-- Statistics grid -->
+                    <div class="results-stats-panel">
+                        <h2>Performance Analytics</h2>
+                        <div class="stats-metric-grid">
+                            <div class="metric-box">
+                                <span class="metric-val" id="stats-total-score">850</span>
+                                <span class="metric-lbl">Total Score</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-val" id="stats-avg-time">4.2s</span>
+                                <span class="metric-lbl">Avg Response Time</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-val" id="stats-lifelines-used">1</span>
+                                <span class="metric-lbl">Lifelines Triggered</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-val" id="stats-accuracy-lbl">80%</span>
+                                <span class="metric-lbl">Accuracy</span>
+                            </div>
+                        </div>
+
+                        <div class="results-actions">
+                            <button class="btn btn-primary" id="retry-quiz-btn">
+                                Retry Settings
+                            </button>
+                            <button class="btn btn-secondary" id="direct-replay-btn">
+                                Play Again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Breakdown Panel -->
+                <div class="review-panel-card">
+                    <div class="review-header">
+                        <h2>Detailed Question Review</h2>
+                        <p>Evaluate your correct and incorrect submissions.</p>
+                    </div>
+
+                    <div class="review-list" id="review-questions-list">
+                        <!-- Questions review items will be rendered dynamically by JS -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal: High Scores / Stats Leaderboard -->
+    <div class="modal-overlay hidden" id="stats-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>🏆 Best Performance Logs</h3>
+                <button class="modal-close" id="stats-modal-close" aria-label="Close Modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll-wrapper">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Category</th>
+                                <th>Difficulty</th>
+                                <th>Accuracy</th>
+                                <th>Score</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-tbody">
+                            <!-- Injected dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="clear-scores-btn">Clear Logs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: How to Play / Guide -->
+    <div class="modal-overlay hidden" id="help-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>❓ Quiz Instruction Guide</h3>
+                <button class="modal-close" id="help-modal-close" aria-label="Close Modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4>Challenge Types</h4>
+                    <p>Expect three formats of questions during your run:</p>
+                    <ul>
+                        <li><strong>Single Choice:</strong> Click the matching button or use keys <kbd>1</kbd> to <kbd>4</kbd>.</li>
+                        <li><strong>Multiple Answers:</strong> Check all boxes that apply and click <em>Submit Answer</em>.</li>
+                        <li><strong>Fill in the Blanks:</strong> Enter the precise missing text and click <em>Submit Answer</em> or press <kbd>Enter</kbd>.</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>Tactical Lifelines</h4>
+                    <p>Use your lifelines wisely (each can be used once per quiz):</p>
+                    <ul>
+                        <li><strong>50:50:</strong> Removes 2 incorrect answers. (Only works on Single Choice).</li>
+                        <li><strong>+15s Time:</strong> Grants extra time to resolve the current card.</li>
+                        <li><strong>Hint:</strong> Displays a helpful clue in the question card. Note: Using a hint reduces the score obtainable for that question.</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>Scoring Algorithm</h4>
+                    <p>Points are computed based on speed and difficulty: Easy = 100 max, Medium = 200 max, Hard = 300 max. Quick responses yield higher points! In untimed mode, correct answers score flat points (Easy: 50, Medium: 100, Hard: 150).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 QuizCraft. Crafted with Premium Aesthetics & Vanilla Web Technologies.</p>
+        </div>
+    </footer>
+
+    <!-- App Script -->
+    <script src="app.js"></script>
+</body>
+</html>
